@@ -1,0 +1,45 @@
+services:
+  # Asia Database Shard
+  asia-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: asia_user
+      POSTGRES_PASSWORD: asia_password
+      POSTGRES_DB: asia_db
+    volumes:
+      - asia_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"  
+
+  # America Database Shard
+  america-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: america_user
+      POSTGRES_PASSWORD: america_password
+      POSTGRES_DB: america_db
+    volumes:
+      - america_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"  
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./service/authService
+    environment:
+      - DB_ASIA_HOST=asia-db
+      - DB_AMERICA_HOST=america-db
+      - DB_PORT=5432
+      - DB_USER=auth_user
+      - DB_PASSWORD=auth_password
+      - DB_NAME=auth_db
+    depends_on:
+      - asia-db
+      - america-db
+    ports:
+      - "8001:8001"
+
+volumes:
+  asia_postgres_data:
+  america_postgres_data:
