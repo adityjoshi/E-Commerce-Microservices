@@ -1,3 +1,9 @@
+
+
+networks:
+  ecommerce_network:
+    driver: bridge
+
 services:
   asia-db:
     image: postgres:latest
@@ -8,7 +14,9 @@ services:
     volumes:
       - asia_postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"  
+      - "5433:5432"
+    networks:
+      - ecommerce_network
 
   america-db:
     image: postgres:latest
@@ -19,7 +27,9 @@ services:
     volumes:
       - america_postgres_data:/var/lib/postgresql/data
     ports:
-      - "5434:5432"  
+      - "5434:5432"
+    networks:
+      - ecommerce_network
 
   auth-service:
     build:
@@ -29,18 +39,21 @@ services:
       - DB_ASIA_PASSWORD=asia_password
       - DB_ASIA_HOST=asia-db
       - DB_ASIA_PORT=5432
+      - DB_ASIA_NAME=asia_db
+
+      # America Database Environment Variables
       - DB_AMERICA_USER=america_user
       - DB_AMERICA_PASSWORD=america_password
       - DB_AMERICA_HOST=america-db
       - DB_AMERICA_PORT=5432
-      - DB_USER=auth_user
-      - DB_PASSWORD=auth_password
-      - DB_NAME=auth_db
+      - DB_AMERICA_NAME=america_db
     depends_on:
       - asia-db
       - america-db
     ports:
       - "8001:8001"
+    networks:
+      - ecommerce_network
 
 volumes:
   asia_postgres_data:

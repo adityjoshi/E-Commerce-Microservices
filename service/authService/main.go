@@ -1,9 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/adityjoshi/E-Commerce-/service/authService/db"
+)
 
 func main() {
 	fmt.Print("auth service")
 
-	InitDB()
+	db.InitDB()
 }

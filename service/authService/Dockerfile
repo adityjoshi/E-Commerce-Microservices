@@ -1,6 +1,8 @@
 # Use Golang base image to build the app
 FROM golang:1.24 AS builder
 
+ENV GOARCH=amd64
+ENV GOOS=linux
 # Set the working directory in the container
 WORKDIR /app
 

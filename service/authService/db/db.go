@@ -30,8 +30,12 @@ func InitDB() {
 
 	// Asia database connection string
 	asiaDSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", asiaDBHost, asiaDBUser, asiaDBPassword, asiaDBName, asiaDBPort)
+
 	// America database connection string
 	americaDSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", americaDBHost, americaDBUser, americaDBPassword, americaDBName, americaDBPort)
+
+	fmt.Println("Asia DSN:", asiaDSN)
+	fmt.Println("America DSN:", americaDSN)
 
 	// Open connections for Asia and America databases
 	asiaDB, err = gorm.Open(postgres.Open(asiaDSN), &gorm.Config{})
