@@ -1,5 +1,4 @@
 services:
-  # Asia Database Shard
   asia-db:
     image: postgres:latest
     environment:
@@ -11,7 +10,6 @@ services:
     ports:
       - "5433:5432"  
 
-  # America Database Shard
   america-db:
     image: postgres:latest
     environment:
@@ -23,14 +21,18 @@ services:
     ports:
       - "5434:5432"  
 
-  # Auth Service
   auth-service:
     build:
       context: ./service/authService
     environment:
+      - DB_ASIA_USER=asia_user
+      - DB_ASIA_PASSWORD=asia_password
       - DB_ASIA_HOST=asia-db
+      - DB_ASIA_PORT=5432
+      - DB_AMERICA_USER=america_user
+      - DB_AMERICA_PASSWORD=america_password
       - DB_AMERICA_HOST=america-db
-      - DB_PORT=5432
+      - DB_AMERICA_PORT=5432
       - DB_USER=auth_user
       - DB_PASSWORD=auth_password
       - DB_NAME=auth_db
