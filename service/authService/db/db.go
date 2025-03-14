@@ -9,8 +9,10 @@ import (
 	"gorm.io/gorm"
 )
 
-var asiaDB *gorm.DB
-var americaDB *gorm.DB
+var (
+	asiaDB    *gorm.DB
+	americaDB *gorm.DB
+)
 var err error
 
 func InitDB() {
@@ -21,23 +23,15 @@ func InitDB() {
 	asiaDBPort := os.Getenv("DB_ASIA_PORT")
 	asiaDBName := os.Getenv("DB_ASIA_NAME")
 
-	// Connection details for the America database
 	americaDBUser := os.Getenv("DB_AMERICA_USER")
 	americaDBPassword := os.Getenv("DB_AMERICA_PASSWORD")
 	americaDBHost := os.Getenv("DB_AMERICA_HOST")
 	americaDBPort := os.Getenv("DB_AMERICA_PORT")
 	americaDBName := os.Getenv("DB_AMERICA_NAME")
 
-	// Asia database connection string
 	asiaDSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", asiaDBHost, asiaDBUser, asiaDBPassword, asiaDBName, asiaDBPort)
-
-	// America database connection string
 	americaDSN := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", americaDBHost, americaDBUser, americaDBPassword, americaDBName, americaDBPort)
 
-	fmt.Println("Asia DSN:", asiaDSN)
-	fmt.Println("America DSN:", americaDSN)
-
-	// Open connections for Asia and America databases
 	asiaDB, err = gorm.Open(postgres.Open(asiaDSN), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("Error connecting to the Asia database: %v", err)
