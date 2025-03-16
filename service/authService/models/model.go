@@ -10,9 +10,9 @@ const (
 type UserType string
 
 const (
-	Staff   UserType = "Staff"
-	Patient UserType = "Patient"
-	Admin   UserType = "Admin"
+	Buyer  UserType = "Buyer"
+	Seller UserType = "Seller"
+	Admin  UserType = "Admin"
 )
 
 type Users struct {
@@ -24,4 +24,9 @@ type Users struct {
 	Password      string   `json:"Password"`
 	Region        string   `json:"region"`
 	User_type     UserType `json:"User_type"`
+}
+
+type UserLogin struct {
+	Email    string `json:"Email" gorm:"not null;unique"`
+	Password string `json:"Password" gorm:"not null"`
 }
