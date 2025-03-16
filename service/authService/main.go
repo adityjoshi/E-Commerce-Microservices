@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/adityjoshi/E-Commerce-/service/authService/db"
+	"github.com/adityjoshi/E-Commerce-/service/authService/routes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +16,7 @@ func main() {
 	db.InitDB()
 
 	router := gin.Default()
-
+	setupRoutes(router)
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
@@ -32,4 +33,8 @@ func main() {
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
+}
+
+func setupRoutes(router *gin.Engine) {
+	routes.UserRoutes(router)
 }
