@@ -11,7 +11,7 @@ import (
 
 var jwtKey = []byte(os.Getenv("JWTSECRET"))
 
-func GetJWTKey(user *models.Users) (string, error) {
+func GenerateJWT(user *models.Users) (string, error) {
 	claims := jwt.MapClaims{
 		"ID":        user.ID,
 		"Email":     user.Email,
