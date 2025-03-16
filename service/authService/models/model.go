@@ -27,6 +27,6 @@ type Users struct {
 }
 
 type UserLogin struct {
-	Email    string `json:"Email" gorm:"not null;unique"`
+	Email    string `json:"Email" gorm:"not null"`
 	Password string `json:"Password" gorm:"not null"`
 }
