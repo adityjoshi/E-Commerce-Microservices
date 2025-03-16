@@ -16,7 +16,7 @@ var (
 var err error
 
 func InitDB() {
-	// Connection details for the Asia database
+
 	asiaDBUser := os.Getenv("DB_ASIA_USER")
 	asiaDBPassword := os.Getenv("DB_ASIA_PASSWORD")
 	asiaDBHost := os.Getenv("DB_ASIA_HOST")
@@ -62,4 +62,16 @@ func InitDB() {
 	}
 
 	fmt.Println("Asia and America Database connections successful")
+}
+
+func GetDB(region string) *gorm.DB {
+	switch region {
+	case "Asia":
+		return asiaDB
+	case "America":
+		return americaDB
+	default:
+		log.Fatalf("Invalid region: %s", region)
+		return nil
+	}
 }
