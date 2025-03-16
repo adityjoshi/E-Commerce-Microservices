@@ -41,7 +41,7 @@ services:
       - DB_ASIA_PORT=5432
       - DB_ASIA_NAME=asia_db
 
-      # America Database Environment Variables
+      
       - DB_AMERICA_USER=america_user
       - DB_AMERICA_PASSWORD=america_password
       - DB_AMERICA_HOST=america-db
