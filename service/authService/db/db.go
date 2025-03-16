@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/adityjoshi/E-Commerce-/service/authService/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -62,6 +63,17 @@ func InitDB() {
 	}
 
 	fmt.Println("Asia and America Database connections successful")
+
+	err = asiaDB.AutoMigrate(&models.Users{})
+	if err != nil {
+		log.Fatalf("Error migrating Asia DB: %v", err)
+	}
+	err = americaDB.AutoMigrate(&models.Users{})
+	if err != nil {
+		log.Fatalf("Error migrating America DB: %v", err)
+	}
+
+	fmt.Println("Asia and America Database connections successful, tables migrated")
 }
 
 func GetDB(region string) *gorm.DB {
