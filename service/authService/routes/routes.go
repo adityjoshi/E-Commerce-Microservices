@@ -7,4 +7,5 @@ import (
 
 func UserRoutes(incomingReq *gin.Engine) {
 	incomingReq.POST("/UserRegister", handlers.UserRegister)
+	incomingReq.POST("/UserLogin", handlers.UserLogin)
 }

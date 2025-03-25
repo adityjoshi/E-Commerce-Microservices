@@ -23,24 +23,16 @@ func AuthorizeUser() gin.HandlerFunc {
 			return
 		}
 
-		// Access user object from claims
-		user, ok := claims["user"].(map[string]interface{})
-		if !ok {
-			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token structure"})
-			c.Abort()
-			return
-		}
-
-		// Extract user_type from the user object
-		userType, ok := user["User_type"].(string)
+		// Extract user_type
+		userType, ok := claims["User_type"].(string)
 		if !ok || userType != "User" {
 			c.JSON(http.StatusForbidden, gin.H{"error": "Unauthorized"})
 			c.Abort()
 			return
 		}
 
-		// Extract region from the user object
-		if region, exists := user["region"].(string); exists {
+		// Extract region
+		if region, exists := claims["region"].(string); exists {
 			c.Set("region", region)
 		} else {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Region not specified in token"})
@@ -48,16 +40,20 @@ func AuthorizeUser() gin.HandlerFunc {
 			return
 		}
 
-		if adminID, exists := user["ID"].(string); exists {
-			c.Set("ID", adminID)
+		// Extract ID and ensure it's uint
+		var userID uint
+		if id, exists := claims["ID"].(float64); exists {
+			userID = uint(id) // Convert float64 to uint
+			c.Set("ID", userID)
 		} else {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "ID not specified in token"})
 			c.Abort()
 			return
 		}
 
-		if Email, exists := user["Email"].(string); exists {
-			c.Set("Email", Email)
+		// Extract Email
+		if email, exists := claims["Email"].(string); exists {
+			c.Set("Email", email)
 		} else {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Email not specified in token"})
 			c.Abort()

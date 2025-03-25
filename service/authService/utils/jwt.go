@@ -5,18 +5,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/adityjoshi/E-Commerce-/service/authService/models"
 	"github.com/golang-jwt/jwt/v5"
 )
 
 var jwtKey = []byte(os.Getenv("JWTSECRET"))
 
-func GenerateJWT(user *models.Users) (string, error) {
+func GenerateJWT(userID uint, email string, User_type string, region string) (string, error) {
 	claims := jwt.MapClaims{
-		"ID":        user.ID,
-		"Email":     user.Email,
-		"User_type": user.User_type,
-		"region":    user.Region,
+		"ID":        userID,
+		"Email":     email,
+		"User_type": User_type,
+		"region":    region,
 		"exp":       time.Now().Add(time.Minute * 2).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
