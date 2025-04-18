@@ -67,7 +67,7 @@ services:
 
   product-service:
     build:
-      context: ./productService
+      context: ./product
     environment:
       - DB_PRODUCT_USER=product_user
       - DB_PRODUCT_PASSWORD=product_password
