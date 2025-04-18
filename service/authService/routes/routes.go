@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/adityjoshi/E-Commerce-/service/authService/handlers"
+	"github.com/adityjoshi/E-Commerce-Microservices/service/authService/handlers"
 	"github.com/gin-gonic/gin"
 )
 

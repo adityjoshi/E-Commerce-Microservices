@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/adityjoshi/E-Commerce-/service/authService/db"
-	"github.com/adityjoshi/E-Commerce-/service/authService/models"
-	"github.com/adityjoshi/E-Commerce-/service/authService/utils"
+	"github.com/adityjoshi/E-Commerce-Microservices/service/authService/db"
+	"github.com/adityjoshi/E-Commerce-Microservices/service/authService/models"
+	"github.com/adityjoshi/E-Commerce-Microservices/service/authService/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )

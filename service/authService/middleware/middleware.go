@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/adityjoshi/E-Commerce-/service/authService/utils"
+	"github.com/adityjoshi/E-Commerce-Microservices/service/authService/utils"
 	"github.com/gin-gonic/gin"
 )
 
