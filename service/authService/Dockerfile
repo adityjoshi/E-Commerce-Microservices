@@ -3,10 +3,10 @@ FROM golang:1.24 AS builder
 
 ENV GOARCH=amd64
 ENV GOOS=linux
-# Set the working directory in the container
+
 WORKDIR /app
 
-# Copy all Go files into the container
+
 COPY . .
 
 # Download dependencies and build the binary

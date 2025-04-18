@@ -1,5 +1,3 @@
-
-
 networks:
   ecommerce_network:
     driver: bridge
@@ -30,6 +28,19 @@ services:
       - "5434:5432"
     networks:
       - ecommerce_network
+  
+  product-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_password
+      POSTGRES_DB: product_db
+    volumes:
+      - product_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+    networks:
+      - ecommerce_network
 
   auth-service:
     build:
@@ -41,7 +52,6 @@ services:
       - DB_ASIA_PORT=5432
       - DB_ASIA_NAME=asia_db
 
-      
       - DB_AMERICA_USER=america_user
       - DB_AMERICA_PASSWORD=america_password
       - DB_AMERICA_HOST=america-db
@@ -55,6 +65,23 @@ services:
     networks:
       - ecommerce_network
 
+  product-service:
+    build:
+      context: ./productService
+    environment:
+      - DB_PRODUCT_USER=product_user
+      - DB_PRODUCT_PASSWORD=product_password
+      - DB_PRODUCT_HOST=product-db
+      - DB_PRODUCT_PORT=5432
+      - DB_PRODUCT_NAME=product_db
+    depends_on:
+      - product-db
+    ports:
+      - "8081:8081"
+    networks:
+      - ecommerce_network
+
 volumes:
   asia_postgres_data:
   america_postgres_data:
+  product_postgres_data:
